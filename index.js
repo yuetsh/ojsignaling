@@ -1,6 +1,16 @@
 import { WebSocketServer } from "ws";
 import http from "http";
 
+
+const setIfUndefined = (map, key, createT) => {
+  let set = map.get(key)
+  if (set === undefined) {
+    map.set(key, set = createT())
+  }
+  return set
+}
+
+
 const wsReadyStateConnecting = 0;
 const wsReadyStateOpen = 1;
 
@@ -90,7 +100,7 @@ const onconnection = (conn) => {
               (topicName) => {
                 if (typeof topicName === "string") {
                   // add conn to topic
-                  const topic = map.setIfUndefined(
+                  const topic = setIfUndefined(
                     topics,
                     topicName,
                     () => new Set()
