@@ -1,0 +1,7 @@
+services:
+  signaling:
+    build: .
+    container_name: signaling
+    ports:
+      - 8085:4444
+    restart: unless-stopped
